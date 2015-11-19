@@ -178,9 +178,12 @@ public class RegisterActivity extends Activity {
             TmallUtil.toast(this, R.string.password_error);
             return;
         }
-        // 上传
+        if (TextUtils.isEmpty(uploadFile)) {
+            uploadFile="images/logo.png";
+        } else {
+            // 上传
             // 上传图片
-            String requestUrl = AndroidClient.BASE_URL+"UploadServlet";
+            String requestUrl = AndroidClient.BASE_URL + "UploadServlet";
             File file = new File(uploadFile);
             LoadDialog loadDialog = new LoadDialog(this);
             // (回调处理方法,上传图片类,指定上传图片类中的方法,请求服务器的URL路径,本地需上传的文件)
@@ -192,46 +195,47 @@ public class RegisterActivity extends Activity {
                         }
                     }, UploadService.class, "postUseUrlConnection", requestUrl, file);
 
-        // 表单数据
-        Map<String, String> params = new HashMap<>();
-        params.put("username", txtUsername.getText().toString());
-        params.put("password", password);
-        params.put("email", txtEmail.getText().toString());
-        params.put("photopath","images"+uploadFile.substring(uploadFile.lastIndexOf("/"),uploadFile.length()));
+            // 表单数据
+            Map<String, String> params = new HashMap<>();
+            params.put("username", txtUsername.getText().toString());
+            params.put("password", password);
+            params.put("email", txtEmail.getText().toString());
+            params.put("photopath", "images" + uploadFile.substring(uploadFile.lastIndexOf("/"), uploadFile.length()));
 
-        // 自定义Json对象请求类(请求方式,URL,表单参数,响应成功后的处理类,响应错误后的处理类)
-        MyJsonObjectRequest request = new MyJsonObjectRequest(
-                Request.Method.POST,
-                VolleyUtil.getAbsoluteUrl("ReigisterServletJson"),
-                params,
-                new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject jo) {
-                        try {
-                            if ("success".equals(jo.getString("flag"))) {
-                                // 注册成功后跳转至登录
-                                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
-                                finish();
-                            } else if ("error".equals(jo.getString("flag"))) {
-                                // 注册失败
-                                TmallUtil.toast(getApplicationContext(), R.string.register_error);
-                            } else if ("exist".equals(jo.getString("flag"))) {
-                                // 用户名已存在
-                                TmallUtil.toast(getApplicationContext(), R.string.register_exist);
+            // 自定义Json对象请求类(请求方式,URL,表单参数,响应成功后的处理类,响应错误后的处理类)
+            MyJsonObjectRequest request = new MyJsonObjectRequest(
+                    Request.Method.POST,
+                    VolleyUtil.getAbsoluteUrl("ReigisterServletJson"),
+                    params,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject jo) {
+                            try {
+                                if ("success".equals(jo.getString("flag"))) {
+                                    // 注册成功后跳转至登录
+                                    startActivity(new Intent(getApplicationContext(), LoginActivity.class));
+                                    finish();
+                                } else if ("error".equals(jo.getString("flag"))) {
+                                    // 注册失败
+                                    TmallUtil.toast(getApplicationContext(), R.string.register_error);
+                                } else if ("exist".equals(jo.getString("flag"))) {
+                                    // 用户名已存在
+                                    TmallUtil.toast(getApplicationContext(), R.string.register_exist);
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        } catch (Exception e) {
-                            e.printStackTrace();
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError volleyError) {
+                            TmallUtil.toast(getApplicationContext(), R.string.net_error);
                         }
                     }
-                },
-                new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError volleyError) {
-                        TmallUtil.toast(getApplicationContext(), R.string.net_error);
-                    }
-                }
-        );
-        VolleyUtil.getInstance(this).addToRequestQueue(request, "register_req");
+            );
+            VolleyUtil.getInstance(this).addToRequestQueue(request, "register_req");
+        }
     }
 
     @Override

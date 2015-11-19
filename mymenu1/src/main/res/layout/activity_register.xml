@@ -86,6 +86,7 @@
             android:background="@android:color/holo_blue_light"
             android:layout_marginTop="0dp"/>
         <LinearLayout
+            android:id="@+id/imgLogo"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:orientation="horizontal"
@@ -103,7 +104,6 @@
 
             <ImageButton
                 android:layout_gravity="center"
-                android:id="@+id/imgLogo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"

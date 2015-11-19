@@ -35,6 +35,7 @@ public class LoginActivity extends Activity {
     @InjectView(R.id.txtPassword)
     EditText txtPassword;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,7 +86,6 @@ public class LoginActivity extends Activity {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
-                        TmallUtil.toast(getApplicationContext(), R.string.net_error);
                     }
                 }
         );
