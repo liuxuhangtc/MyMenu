@@ -170,7 +170,6 @@ public class RegisterActivity extends Activity {
             }
         }
     }
-
     @OnClick(R.id.btn_register)
     public void registerClick() {
         String password = txtPassword.getText().toString();

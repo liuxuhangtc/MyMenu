@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:background="@android:color/holo_blue_dark"
-              android:orientation="vertical"
-              tools:context=".LoginActivity">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/holo_blue_light"
+    android:orientation="vertical"
+    tools:context=".LoginActivity">
+
 
     <RelativeLayout
         android:id="@+id/topBar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_top_bar"
+        android:layout_height="48dp"
         android:layout_alignParentTop="true"
-        android:background="@android:color/holo_blue_dark">
+        android:background="@android:color/holo_blue_light">
 
         <TextView
             android:layout_width="wrap_content"
@@ -20,10 +21,12 @@
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:text="@string/app_name"
+            android:text="美味菜谱"
             android:textColor="@android:color/white"
             android:textSize="18sp"/>
     </RelativeLayout>
+
+
 
     <LinearLayout
         android:id="@+id/contentLayout"
@@ -32,71 +35,123 @@
         android:orientation="vertical"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/height_margin_top">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        android:paddingTop="5dp">
 
-            <ImageView
-                android:id="@+id/imgLogoView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="3"/>
-            <Button
-                android:text="头像设置"
-                android:layout_weight="1"
-                android:id="@+id/imgLogo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
         <EditText
             android:id="@+id/txtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/height_margin_top"
-            android:hint="@string/hint_username"/>
+            android:layout_marginTop="5dp"
+            android:hint="用户名"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginTop="0dp"/>
 
         <EditText
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/height_margin_top"
-            android:hint="@string/hint_password"
+            android:layout_marginTop="5dp"
+            android:hint="密码"
             android:inputType="textPassword"/>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginTop="0dp"/>
         <EditText
             android:id="@+id/txtRePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/height_margin_top"
-            android:hint="@string/hint_repassword"
+            android:layout_marginTop="5dp"
+            android:hint="重复密码"
             android:inputType="textPassword"/>
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginTop="0dp"/>
         <EditText
             android:id="@+id/txtEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/height_margin_top"
-            android:hint="@string/hint_email"
+            android:layout_marginTop="5dp"
+            android:hint="邮箱"
             android:inputType="textEmailAddress"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginTop="0dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="选择用户头像"
+                android:textSize="20sp"
+                android:textColor="@android:color/black"
+                android:layout_marginTop="10dp"/>
+
+            <ImageButton
+                android:layout_gravity="center"
+                android:id="@+id/imgLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@android:color/holo_blue_light"
+                android:src="@drawable/camera"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@android:color/holo_blue_light"
+            android:layout_marginTop="0dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            >
+            <ImageView
+                android:id="@+id/imgLogoView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                />
+        </LinearLayout>
+
+
 
         <Button
-            android:layout_gravity="center"
             android:id="@+id/btn_register"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="@dimen/height_margin_top"
-            android:background="@android:color/darker_gray"
-            android:text="@string/btn_register"
-            android:textColor="@android:color/black"
-            android:textSize="20sp"/>
+            android:background="@drawable/button_style"
+            android:text="注册"
+            android:onClick="onClick"
+            android:textSize="18sp"
+            android:layout_marginTop="20dp"/>
 
         <TextView
             android:id="@+id/tvProtocol"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/height_margin_top"
+            android:layout_marginTop="5dp"
             android:textSize="14sp"/>
     </LinearLayout>
 
