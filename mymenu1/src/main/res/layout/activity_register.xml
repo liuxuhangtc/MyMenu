@@ -38,6 +38,7 @@
         android:paddingTop="5dp">
 
         <EditText
+            android:drawableLeft="@drawable/user_01"
             android:id="@+id/txtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,6 +51,7 @@
             android:layout_marginTop="0dp"/>
 
         <EditText
+            android:drawableLeft="@drawable/psd_01"
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -62,6 +64,7 @@
             android:background="@android:color/holo_blue_light"
             android:layout_marginTop="0dp"/>
         <EditText
+            android:drawableLeft="@drawable/psd_01"
             android:id="@+id/txtRePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

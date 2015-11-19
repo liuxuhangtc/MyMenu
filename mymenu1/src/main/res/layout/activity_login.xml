@@ -11,6 +11,7 @@
     tools:context=".LoginActivity">
 
     <LinearLayout
+        android:background="@android:color/holo_blue_light"
         android:id="@+id/topBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +34,6 @@
             android:textColor="@android:color/background_dark"
             android:textSize="20sp"
             />
-
     </LinearLayout>
 
     <LinearLayout
@@ -45,7 +45,6 @@
 
 
         <EditText
-            android:hint="@string/hint_username"
             android:id="@+id/txtUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,7 +54,6 @@
             />
 
         <EditText
-            android:hint="@string/hint_password"
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,6 +91,7 @@
             android:layout_height="5dp"></View>
 
         <Button
+            android:layout_weight="1"
             android:id="@+id/btn_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -102,21 +101,47 @@
     </LinearLayout>
 
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/sanfanglogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll"
-        android:paddingTop="10dp">
+        android:paddingTop="20dp">
 
-
-        <Button
-            android:id="@+id/btn_forget"
-            android:layout_width="150dp"
-            android:layout_height="45dp"
-            android:background="@android:color/holo_blue_light"
-            android:text="忘记密码"
             />
+        <ImageButton
+            android:id="@+id/login_weixin"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_light"
+            android:src="@drawable/weixinlogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/login_qq"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_light"
+            android:src="@drawable/qqlogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/login_weibo"
+            android:layout_weight="1"
+            android:background="@android:color/holo_blue_light"
+            android:src="@drawable/weibologo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
-    </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_below="@id/sanfanglogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingTop="15dp"
+            android:text="忘记密码"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
 </RelativeLayout>

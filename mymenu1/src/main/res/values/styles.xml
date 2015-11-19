@@ -1,4 +1,11 @@
 <resources>
+  <!-- QQ button -->
+  <style name="QQ_Button_Style">
+    <item name="android:gravity">center</item>
+    <item name="android:textSize">17sp</item>
+    <item name="android:layout_marginTop">3dip</item>
+    <item name="android:layout_marginBottom">3dip</item>
+  </style>
   <!-- Base application theme. -->
   <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     <!-- Customize your theme here. -->
