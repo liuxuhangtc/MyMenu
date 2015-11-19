@@ -32,6 +32,8 @@ import com.android.volley.toolbox.ImageLoader;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * Main Activity (主活动界面)
  *
@@ -104,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
         tvUsername.setText(username);
 
         // 设置当前登录的用户图片
-        ImageView imgUsername = (ImageView) navView.findViewById(R.id.imgUsername);
+        CircleImageView imgUsername = (CircleImageView) navView.findViewById(R.id.imgUsername);
         // 可用 ImageLoader 加载自定义的用户图片
         // 用户表中新增一列 img_path 存储用户图片 (替换硬代码)
         String imgPath;

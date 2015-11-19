@@ -9,7 +9,7 @@
               android:theme="@style/Base.Theme.DesignDemo">
 
   <!-- 显示当前用户的图标和用户名-->
-  <ImageView
+  <de.hdodenhof.circleimageview.CircleImageView
       android:layout_weight="2"
       android:id="@+id/imgUsername"
       android:layout_width="100dp"

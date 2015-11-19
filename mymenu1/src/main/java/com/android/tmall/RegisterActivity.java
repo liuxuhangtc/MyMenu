@@ -42,6 +42,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * 注册 Activity
@@ -62,7 +63,7 @@ public class RegisterActivity extends Activity {
 
     private static final int TAKE_PHOTO = 0;
     private static final int CHOOSE_PHOTO = 1;
-    private static final int SCALE = 10;// 照片缩小比例
+    private static final int SCALE = 7;// 照片缩小比例
     private String uploadFile;
 
     @Override
