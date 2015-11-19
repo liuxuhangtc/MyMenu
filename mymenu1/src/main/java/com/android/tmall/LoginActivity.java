@@ -34,10 +34,6 @@ public class LoginActivity extends Activity {
     EditText txtUsername;
     @InjectView(R.id.txtPassword)
     EditText txtPassword;
-    @InjectView(R.id.imgPassword)
-    ImageView imgPassword;
-
-    private boolean isChecked = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +41,6 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         ButterKnife.inject(this);
-    }
-
-    @OnClick(R.id.imgPassword)
-    public void imgPasswordClick() {
-        if (isChecked) {
-            imgPassword.setImageResource(R.drawable.agu);
-            txtPassword.setTransformationMethod(
-                    HideReturnsTransformationMethod.getInstance());
-            isChecked = false;
-        } else {
-            imgPassword.setImageResource(R.drawable.amg);
-            txtPassword.setTransformationMethod(
-                    PasswordTransformationMethod.getInstance());
-            isChecked = true;
-        }
     }
 
     @OnClick(R.id.btn_login)
@@ -80,9 +61,6 @@ public class LoginActivity extends Activity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject jsonObject) {
-                        Log.v(TmallUtil.TAG, jsonObject.toString());
-                        // {"id":1,"username":"admin","email":"admin@gmail.com","status":"1"}
-
                         try {
                             if (jsonObject.getInt("id") == 0) {
                                 TmallUtil.toast(getApplicationContext(), R.string.user_invalid);
