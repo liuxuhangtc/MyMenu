@@ -1,6 +1,10 @@
 package com.android.tmall;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.os.Handler;
+import android.os.Message;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -16,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,9 +30,18 @@ import android.widget.TextView;
 import com.android.tmall.fragment.DisFragment;
 import com.android.tmall.fragment.HomeFragment;
 import com.android.tmall.fragment.SortFragment;
+import com.android.tmall.util.JokeUtil;
+import com.android.tmall.util.QQUtil;
 import com.android.tmall.util.TmallUtil;
 import com.android.tmall.util.VolleyUtil;
 import com.android.volley.toolbox.ImageLoader;
+import com.tencent.connect.UserInfo;
+import com.tencent.tauth.IUiListener;
+import com.tencent.tauth.Tencent;
+import com.tencent.tauth.UiError;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,11 +65,21 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
+    public static Tencent mTencent;
+    // QQ用户信息
+    private UserInfo mInfo;
+    private boolean status;//登录状态
+    private Bitmap nav_userImage;
+    private String nav_username = new String();
+    private ImageView userImg;
+    private TextView username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mTencent = LoginActivity.mTencent;
+        updateUserImg();
 
         // 抽屉布局
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -177,8 +201,8 @@ public class MainActivity extends AppCompatActivity {
         Adapter adapter = new Adapter(getSupportFragmentManager());
         adapter.addFragment(new HomeFragment(),
                 getString(R.string.product_list));
-        adapter.addFragment(new DisFragment(),getString(R.string.community));
-        adapter.addFragment(new SortFragment(),getString(R.string.sort));
+        adapter.addFragment(new DisFragment(),getString(R.string.sort));
+        adapter.addFragment(new SortFragment(),getString(R.string.community));
         viewPager.setAdapter(adapter);
     }
 
@@ -214,4 +238,104 @@ public class MainActivity extends AppCompatActivity {
             return fragmentTitles.get(position);
         }
     }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        status=getIntent().getBooleanExtra("qqLogined",false);
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==100) {
+
+            if (resultCode == RESULT_OK) {
+                status = data.getBooleanExtra("qqLogined", false);
+                Log.i("MainActivity", String.valueOf(status) + "qq success");
+                Intent intent = new Intent(MainActivity.this, MainActivity.class);
+                intent.putExtra("ifLogined",status);
+                startActivity(intent);
+
+            }
+        }
+    }
+
+    private void updateUserImg() {
+        if (mTencent != null && mTencent.isSessionValid()) {
+            IUiListener listener = new IUiListener() {
+
+                @Override
+                public void onError(UiError e) {
+
+                }
+
+                @Override
+                public void onComplete(final Object response) {
+                    Log.v("MainActivity", "My QQ Info:\n" + response.toString());
+
+                    Message msg = new Message();
+                    msg.obj = response;
+                    msg.what = 0;
+                    mHandler.sendMessage(msg);
+                    new Thread() {
+
+                        @Override
+                        public void run() {
+                            JSONObject json = (JSONObject) response;
+                            if (json.has("figureurl")) {
+                                Bitmap bitmap = null;
+                                try {
+                                    bitmap = QQUtil.getbitmap(json.getString("figureurl_qq_2"));
+                                } catch (JSONException e) {
+
+                                }
+                                Message msg = new Message();
+                                msg.obj = bitmap;
+                                msg.what = 1;
+                                mHandler.sendMessage(msg);
+                            }
+                        }
+
+                    }.start();
+                }
+
+                @Override
+                public void onCancel() {
+
+                }
+            };
+            mInfo = new UserInfo(this, mTencent.getQQToken());
+            mInfo.getUserInfo(listener);
+
+        }
+    }
+
+    Handler mHandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0) {
+                JSONObject response = (JSONObject) msg.obj;
+                if (response.has("nickname")) {
+                    try {
+                        nav_username = response.getString("nickname");
+//Log.i("MainActivity","11111");
+                        username.setText(nav_username);
+                        JokeUtil.savePreferences(getApplicationContext(), 1, nav_username, null, null);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            } else if (msg.what == 1) {
+                nav_userImage = (Bitmap) msg.obj;
+                userImg.setImageBitmap(nav_userImage);
+
+            }
+        }
+
+    };
 }
+
